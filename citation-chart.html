@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
   <title>Scopus Citation Dashboard</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -13,16 +13,16 @@
       text-align: center;
     }
 
-    .container {
+    .box {
       max-width: 900px;
       margin: auto;
       background: white;
       padding: 25px;
       border-radius: 12px;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
     }
 
-    .header {
+    .top {
       margin-bottom: 20px;
     }
 
@@ -30,89 +30,43 @@
       text-decoration: none;
       color: #1f6feb;
     }
-
-    .id {
-      font-size: 14px;
-      color: gray;
-    }
   </style>
 </head>
 
 <body>
 
-<a href="index.html">⬅ Back to SSIRG Home</a>
+<a href="index.html">⬅ Back</a>
 
-<div class="container">
-
-  <div class="header">
-    <h2>Scopus Research Analytics</h2>
-    <p class="id">Author ID: 7004271836</p>
+<div class="box">
+  <div class="top">
+    <h2>Scopus Citation Analytics</h2>
+    <p>Author ID: 7004271836</p>
   </div>
 
   <canvas id="chart"></canvas>
-
 </div>
 
 <script>
 
-// 🔴 YOU WILL CONNECT THIS LATER
-const API_URL = "https://YOUR_GOOGLE_SCRIPT_URL_HERE";
-
-fetch(API_URL)
+fetch("data.json")
   .then(res => res.json())
   .then(data => {
 
-    const ctx = document.getElementById('chart');
-
-    new Chart(ctx, {
+    new Chart(document.getElementById("chart"), {
       type: 'line',
       data: {
         labels: data.years,
         datasets: [
           {
-            label: 'Citations',
+            label: "Citations",
             data: data.citations,
-            borderColor: 'blue',
+            borderColor: "blue",
             fill: false
           },
           {
-            label: 'Publications',
+            label: "Publications",
             data: data.documents,
-            borderColor: 'green',
-            fill: false
-          }
-        ]
-      },
-      options: {
-        responsive: true,
-        plugins: {
-          legend: { position: 'top' }
-        }
-      }
-    });
-
-  })
-  .catch(err => {
-    console.log("Data not loaded yet:", err);
-
-    // fallback demo data (so page never looks broken)
-    const ctx = document.getElementById('chart');
-
-    new Chart(ctx, {
-      type: 'line',
-      data: {
-        labels: [2018,2019,2020,2021,2022],
-        datasets: [
-          {
-            label: 'Citations (Demo)',
-            data: [5, 12, 30, 60, 110],
-            borderColor: 'blue',
-            fill: false
-          },
-          {
-            label: 'Publications (Demo)',
-            data: [1, 3, 5, 8, 12],
-            borderColor: 'green',
+            borderColor: "green",
             fill: false
           }
         ]
