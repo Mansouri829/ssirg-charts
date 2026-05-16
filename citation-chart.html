@@ -1,81 +1,24 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8">
-  <title>Scopus Citation Dashboard</title>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-  <style>
-    body {
-      font-family: Arial;
-      background: #eef2f7;
-      padding: 30px;
-      text-align: center;
-    }
-
-    .box {
-      max-width: 900px;
-      margin: auto;
-      background: white;
-      padding: 25px;
-      border-radius: 12px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    }
-
-    .top {
-      margin-bottom: 20px;
-    }
-
-    a {
-      text-decoration: none;
-      color: #1f6feb;
-    }
-  </style>
-</head>
-
-<body>
-
-<a href="index.html">⬅ Back</a>
-
-<div class="box">
-  <div class="top">
-    <h2>Scopus Citation Analytics</h2>
-    <p>Author ID: 7004271836</p>
-  </div>
-
-  <canvas id="chart"></canvas>
-</div>
-
-<script>
-
 fetch("data.json")
-  .then(res => res.json())
+  .then(r => r.json())
   .then(data => {
 
     new Chart(document.getElementById("chart"), {
-      type: 'line',
+      type: "line",
       data: {
         labels: data.years,
         datasets: [
           {
             label: "Citations",
             data: data.citations,
-            borderColor: "blue",
-            fill: false
+            borderColor: "blue"
           },
           {
-            label: "Publications",
+            label: "Documents",
             data: data.documents,
-            borderColor: "green",
-            fill: false
+            borderColor: "green"
           }
         ]
       }
     });
 
   });
-
-</script>
-
-</body>
-</html>
