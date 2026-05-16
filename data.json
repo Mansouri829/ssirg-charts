@@ -1,7 +1,35 @@
+import json
+from collections import defaultdict
 
-{
-  "authorId": "7004271836",
-  "years": [2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
-  "citations": [2, 5, 12, 28, 55, 90, 140, 200],
-  "documents": [1, 2, 3, 5, 7, 9, 11, 13]
+# =========================
+# LOAD SCOPUS PAPER DATA
+# =========================
+with open("papers.json", "r") as f:
+    papers = json.load(f)
+
+# =========================
+# AGGREGATE LIKE SCOPUS
+# =========================
+citations_by_year = defaultdict(int)
+docs_by_year = defaultdict(int)
+
+for p in papers:
+    year = p["year"]
+    citations = p.get("citations", 0)
+
+    citations_by_year[year] += citations
+    docs_by_year[year] += 1
+
+years = sorted(citations_by_year.keys())
+
+output = {
+    "authorId": "7004271836",
+    "years": years,
+    "citations": [citations_by_year[y] for y in years],
+    "documents": [docs_by_year[y] for y in years]
 }
+
+with open("data.json", "w") as f:
+    json.dump(output, f, indent=2)
+
+print("✅ data.json rebuilt from Scopus-style data")
