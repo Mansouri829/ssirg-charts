@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body{
+      font-family: Arial, sans-serif;
+      margin:0;
+      padding:20px;
+    }
+
+    .chart-container{
+      width:100%;
+      max-width:900px;
+      margin:auto;
+    }
+  </style>
+</head>
+<body>
+
+<div class="chart-container">
+  <canvas id="citationChart"></canvas>
+</div>
+
+<script>
+const ctx = document.getElementById('citationChart');
+
+new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: [
+          '2018','2019','2020',
+          '2021','2022','2023',
+          '2024','2025'
+        ],
+
+        datasets: [
+
+        {
+            type: 'bar',
+            label: 'Documents',
+            data: [5,8,10,14,17,21,24,19],
+            backgroundColor: '#4285F4',
+            yAxisID: 'y',
+        },
+
+        {
+            type: 'line',
+            label: 'Citations',
+            data: [10,30,60,120,260,410,620,780],
+            borderColor: '#0b0b6d',
+            backgroundColor: '#0b0b6d',
+            tension: 0.3,
+            yAxisID: 'y1',
+        }
+
+        ]
+    },
+
+    options: {
+        responsive: true,
+        plugins: {
+            title: {
+                display: true,
+                text: 'Document & Citation Trends'
+            }
+        },
+        interaction: {
+            mode: 'index',
+            intersect: false
+        },
+        scales: {
+            y: {
+                type: 'linear',
+                position: 'left',
+                title: { display: true, text: 'Documents' }
+            },
+            y1: {
+                type: 'linear',
+                position: 'right',
+                grid: { drawOnChartArea: false },
+                title: { display: true, text: 'Citations' }
+            }
+        }
+    }
+});
+</script>
+
+</body>
+</html>
